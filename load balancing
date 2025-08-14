@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int ser, request;
+    cout << "Enter Number of Servers: ";
+    cin >> ser;
+
+    string hash_T[100];
+    for (int i = 0; i < ser; i++) hash_T[i] = "";
+
+    cout << "Enter Number of Requests: ";
+    cin >> request;
+
+    string req[100];
+    int assigned_server[100];
+    for (int i = 0; i < request; i++) assigned_server[i] = -1;
+
+    for (int i = 0; i < request; i++) {
+        cout << "Enter Request IP: ";
+        cin >> req[i];
+    }
+
+    for (int i = 0; i < request; i++) {
+        bool assigned = false;
+        for (int j = 0; j < ser; j++) {
+            if (hash_T[j] == "") {
+                hash_T[j] = req[i];
+                assigned_server[i] = j + 1;
+                assigned = true;
+                break;
+            }
+        }
+        if (!assigned) assigned_server[i] = -1; // failed
+    }
+
+    for (int i = 0; i < request; i++) {
+        if (assigned_server[i] != -1)
+            cout << "Server " << assigned_server[i] << " is handling request " << req[i] << endl;
+        else
+            cout << "Request " << req[i] << " is failed. Servers are overloaded." << endl;
+    }
+
+    return 0;
+}
