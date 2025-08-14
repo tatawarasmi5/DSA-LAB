@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+
+class TempData {
+    float temp[3][7];
+
+public:
+    void input() {
+        for (int i = 0; i < 3; i++) {
+            cout << "Enter temperatures for City " << i+1 << ":\n";
+            for (int j = 0; j < 7; j++) {
+                cout << "Day " << j+1 << ": ";
+                cin >> temp[i][j];
+            }
+        }
+    }
+
+    void display() {
+        cout << "\nC\\D\t\t";
+        for (int j = 0; j < 7; j++)
+            cout << "D" << j+1 << "\t";
+        cout << "Avg\n";
+
+        for (int i = 0; i < 3; i++) {
+            float sum = 0;
+            cout << "City " << i+1 << "\t";
+            for (int j = 0; j < 7; j++) {
+                cout << temp[i][j] << "\t";
+                sum += temp[i][j];
+            }
+            cout << sum/7 << endl;
+        }
+
+        cout << "\nAvg temp for each day:\n";
+        for (int j = 0; j < 7; j++) {
+            float sum = 0;
+            for (int i = 0; i < 3; i++)
+                sum += temp[i][j];
+            cout << "Day " << j+1 << ": " << sum/3 << endl;
+        }
+    }
+};
+
+int main() {
+    TempData t;
+    t.input();
+    t.display();
+    return 0;}
