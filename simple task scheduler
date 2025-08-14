@@ -1,0 +1,50 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int task_no, priority, time;
+    Node* next;
+};
+Node* head = NULL;
+
+void addTask(int tno, int pr, int tm) {
+    Node* newNode = new Node();
+    newNode->task_no = tno;
+    newNode->priority = pr;
+    newNode->time = tm;
+    newNode->next = NULL;
+
+    if (!head) head = newNode;
+    else {
+        Node* temp = head;
+        while (temp->next) temp = temp->next;
+        temp->next = newNode;
+    }
+}
+
+void display() {
+    cout << "\nTasks:\n TaskNo  Priority  Time\n";
+    Node* temp = head;
+    while (temp) {
+        cout << "\t" << temp->task_no << "\t\t" << temp->priority << "\t\t" << temp->time << endl;
+        temp = temp->next;
+    }
+}
+
+int main() {
+    int choice;
+    do {
+        int t, p, ti;
+        cout << "Enter task number: "; cin >> t;
+        cout << "Enter priority: "; cin >> p;
+        cout << "Enter time: "; cin >> ti;
+        addTask(t, p, ti);
+
+        cout << "Add another task? 1.Yes 2.No: ";
+        cin >> choice;
+    } while (choice == 1);
+
+    display();
+    return 0;
+}
