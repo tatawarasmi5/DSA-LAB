@@ -1,0 +1,43 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cout<<"Enter number of cards:";
+	cin>>n;
+	int cards[100];
+	
+	cout<<"Enter the card numbers:\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>cards[i];
+	}
+	
+	cout<<"Comparing Now: \n";
+    
+    for(int i=1;i<n;i++)
+    {
+		int key=cards[i];
+		int j=i-1;
+		while(j>=0 && cards[j]>key)
+		{
+			cards[j+1]=cards[j];
+			j--;
+		}
+		cards[j+1]=key;
+		cout<<"Now Sorting\n";
+		for(int k=0;k<n;k++)
+		{
+			cout<<cards[k]<<" ";
+		}
+		cout<<endl;
+	}
+	
+	 cout<<"The sorted array is:\n";
+	 for(int i=0;i<n;i++)
+     {
+        cout<<cards[i]<<" ";
+     }
+return 0;
+}
