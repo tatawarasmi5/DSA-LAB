@@ -1,0 +1,37 @@
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int n;
+	cout<<"Enter number of scores:";
+	cin>>n;
+	int scores[100];
+	
+	cout<<"Enter the scores:\n";
+	for(int i=0;i<n;i++)
+	{
+		cin>>scores[i];
+	}
+	
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n-i-1;j++)
+		{
+			if (scores[j]>scores[j+1])
+			{
+				int temp=scores[j];
+				scores[j]=scores[j+1];
+				scores[j+1]=temp;
+			}
+		}
+	}
+	
+	cout<<"The sorted scores are:\n";
+	for(int i=0;i<n;i++)
+	{
+		cout<<scores[i]<<"\t";
+	}
+	cout<<endl;
+	return 0;
+}
