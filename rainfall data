@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+class raindata{
+	float rainfall[3][4];
+	
+	public:
+	void input()
+	{
+		cout << "Enter rainfall data for 3 cities for 4 months:\n";
+	for (int i=0; i<3; i++){
+		cout<< "City"<< i+1<<":\n";
+		for (int j=0;j<4;j++){
+			cout << "Month"<<j+1<<":";
+			cin>>rainfall[i][j];
+			}
+		}
+	} 
+	void display()
+	{
+			cout<<"\n Rainfall Data Table:\n";
+	cout<<"City\\\nMonth\t";
+	for (int j=0;j<4;j++){
+		cout <<"M"<<j+1<<"\t";
+	}
+	cout <<"Average\n";
+	for (int i=0;i<3;i++){
+		float sum=0;
+		cout <<"City"<<i+1<<"\t";
+		for (int j=0;j<4;j++){
+			cout<<rainfall[i][j]<<"\t";
+			sum+=rainfall[i][j];
+		}
+		float average=sum/4;
+		cout <<average<<endl;
+	}
+}
+};
+int main()
+{	
+	raindata rainfall;
+	rainfall.input();
+	rainfall.display();
+	return 0;
+}
