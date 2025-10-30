@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class ParenthesisChecker {
+private:
+    char stackArr[100];   
+    int top;            
+    string expr;          
+
+public:
+    // Constructor
+    ParenthesisChecker(string e) {
+        expr = e;
+        top = -1;
+    }
+
+    // Push function
+    void push(char ch) {
+        if (top >= 99) {
+            cout << "Stack overflow!" << endl;
+        } else {
+            stackArr[++top] = ch;
+        }
+    }
+
+    // Pop function
+    char pop() {
+        if (top == -1) {
+            return '\0';  // empty stack
+        } else {
+            return stackArr[top--];
+        }
+    }
+
+    // Check if stack is empty
+    int isEmpty() {
+        return (top == -1);
+    }
+
+    // Check if opening and closing brackets match
+    int isMatching(char open, char close) {
+        if ((open == '(' && close == ')') ||
+            (open == '{' && close == '}') ||
+            (open == '[' && close == ']'))
+            return 1;
+        else
+            return 0;
+    }
+
+    // Main checking logic
+    void check() {
+        for (char ch : expr) {
+            if (ch == '(' || ch == '{' || ch == '[') {
+                push(ch);
+            }
+            else if (ch == ')' || ch == '}' || ch == ']') {
+                if (isEmpty()) {
+                    cout << "Not well parenthesized" << endl;
+                    return;
+                }
+
+                char topChar = pop();
+                if (!isMatching(topChar, ch)) {
+                    cout << "Not well parenthesized" << endl;
+                    return;
+                }
+            }
+        }
+
+        if (isEmpty())
+            cout << "Well parenthesized" << endl;
+        else
+            cout << "Not well parenthesized" << endl;
+    }
+};
+
+int main() {
+    string exp;
+    cout << "Enter the expression: ";
+    cin >> exp;
+
+    ParenthesisChecker obj(exp);
+    obj.check();
+
+    return 0;
+}
