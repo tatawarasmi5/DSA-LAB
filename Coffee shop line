@@ -1,0 +1,106 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct Node {
+    string customer_name;
+    Node* next;
+};
+
+class CoffeeShop {
+private:
+    Node* front;
+    Node* rear;
+
+public:
+    CoffeeShop() {
+        front = rear = nullptr;
+    }
+
+    // Inserting into queue (enqueue)
+    void enqueue(string name) {
+        Node* temp = new Node;
+        temp->customer_name = name;
+        temp->next = nullptr;
+
+        if (rear == nullptr) {
+            front = rear = temp;
+            cout << name << " joined the line.\n";
+        } else {
+            rear->next = temp;
+            rear = temp;
+            cout << name << " joined the line.\n";
+        }
+    }
+
+    // Deleting from queue (dequeue)
+    void dequeue() {
+        if (front == nullptr) {
+            cout << "No customer is in the line.\n";
+        } else {
+            Node* curr = front;
+            cout << front->customer_name << "'s order is ready and can leave the line.\n";
+            front = front->next;
+            if (front == nullptr) {
+                rear = nullptr;
+            }
+            delete curr;
+        }
+    }
+
+    // Display the queue
+    void display() {
+        if (front == nullptr) {
+            cout << "No customer is in the line.\n";
+        } else {
+            Node* temp1 = front;
+            cout << "Current line: ";
+            while (temp1 != nullptr) {
+                cout << temp1->customer_name;
+                if (temp1->next != nullptr) {
+                    cout << " -> ";
+                }
+                temp1 = temp1->next;
+            }
+            cout << endl;
+        }
+    }
+};
+
+int main() {
+    int choice;
+    string name;
+    CoffeeShop queue;
+
+    do {
+        cout << "\n--- Coffee Shop Queue Menu ---\n";
+        cout << "1. New Customer Arrival\n";
+        cout << "2. Serve Customer\n";
+        cout << "3. Show Queue\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter the customer name: ";
+                cin >> name;
+                queue.enqueue(name);
+                break;
+            case 2:
+                queue.dequeue();
+                break;
+            case 3:
+                queue.display();
+                break;
+            case 4:
+                cout << "Exiting program...\n";
+                return 0;
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
