@@ -1,0 +1,132 @@
+BFS
+INPUT:
+#include <iostream>
+using namespace std;
+
+class WebCrawler {
+    int graph[10][10];
+    int n; // number of web pages
+
+public:
+    void input() {
+        int e;
+        cout << "Enter number of web pages (max 10): ";
+        cin >> n;
+
+        // Initialize adjacency matrix
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                graph[i][j] = 0;
+
+        cout << "\nEnter number of hyperlinks: ";
+        cin >> e;
+
+        cout << "\nEnter links (from to):\n";
+        for (int i = 0; i < e; i++) {
+            int from, to;
+            cin >> from >> to;
+            graph[from][to] = 1;
+        }
+    }
+
+    void bfs(int start) {
+        cout << "\n\nIndexing pages starting from: " << start << "\n";
+
+        int visited[10] = {0};
+        int queue[10];
+        int front = 0, rear = 0;
+
+        visited[start] = 1;
+        queue[rear++] = start;
+
+        while (front < rear) {
+            int page = queue[front++];
+            cout << "Indexed page: " << page << "\n";
+
+            for (int i = 0; i < n; i++) {
+                if (graph[page][i] == 1 && visited[i] == 0) {
+                    visited[i] = 1;
+                    queue[rear++] = i;
+                }
+            }
+        }
+    }
+};
+
+int main() {
+    WebCrawler crawler;
+    crawler.input();
+
+    int start;
+    cout << "\nEnter seed/start page number: ";
+    cin >> start;
+
+    crawler.bfs(start);
+
+    return 0;
+}
+
+
+DFS
+INPUT:
+#include <iostream>
+using namespace std;
+
+class WebCrawler {
+    int graph[10][10];
+    int n; // number of web pages
+    int visited[10];
+
+public:
+    void input() {
+        int e;
+        cout << "Enter number of web pages (max 10): ";
+        cin >> n;
+
+        // Initialize adjacency matrix and visited array
+        for (int i = 0; i < n; i++) {
+            visited[i] = 0;
+            for (int j = 0; j < n; j++)
+                graph[i][j] = 0;
+        }
+
+        cout << "\nEnter number of hyperlinks: ";
+        cin >> e;
+
+        cout << "\nEnter links (from to):\n";
+        for (int i = 0; i < e; i++) {
+            int from, to;
+            cin >> from >> to;
+            graph[from][to] = 1;
+        }
+    }
+
+    void dfs(int page) {
+        visited[page] = 1;
+        cout << "\n Indexed page: " << page;
+
+        for (int i = 0; i < n; i++) {
+            if (graph[page][i] == 1 && visited[i] == 0) {
+                dfs(i); // recursive call
+            }
+        }
+    }
+
+    void startDFS(int start) {
+        cout << "\n\nStarting DFS web crawling from page: " << start << "\n";
+        dfs(start);
+    }
+};
+
+int main() {
+    WebCrawler crawler;
+    crawler.input();
+
+    int start;
+    cout << "\nEnter seed (start) page number: ";
+    cin >> start;
+
+    crawler.startDFS(start);
+
+    return 0;
+}
